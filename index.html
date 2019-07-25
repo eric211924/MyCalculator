@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Calculator</title>
+    <style>
+        /* button圓角 */
+        button {
+            border-radius: 10px;
+        }
+
+        /* 顯示字體 */
+        p {
+            font-size: 2.5em;
+            font-weight: bold;
+            font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN',
+                'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+            height: 3rem;
+            width: 270px;
+
+            /* border: green solid 1px; */
+            text-align: right;
+
+        }
+
+        /* 底圖 */
+        body {
+            background-image: url("number/bk.png");
+            background-repeat: no-repeat;
+        }
+    </style>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- <p><a href="https://www.desmos.com/scientific" target="_blank">參考網路上面的計算機</a></p> -->
+
+
+    <p id="result">0</p>
+    <button onclick="showMsg('7')"><img src="number/7.png" alt="" width="50px" height="50px"></button>
+    <button onclick="showMsg('8')"><img src="number/8.png" alt="" width="50px" height="50px"></button>
+    <button onclick="showMsg('9')"><img src="number/9.png" alt="" width="50px" height="50px"></button>
+    <button onclick="cul('+')"><img src="number/+.png" alt="" width="50px" height="50px"></button>
+    <br>
+
+    <button onclick="showMsg('4')"><img src="number/4.png" alt="" width="50px" height="50px"></button>
+    <button onclick="showMsg('5')"><img src="number/5.png" alt="" width="50px" height="50px"></button>
+    <button onclick="showMsg('6')"><img src="number/6.png" alt="" width="50px" height="50px"></button>
+    <button onclick="cul('-')"><img src="number/-.png" alt="" width="50px" height="50px"></button>
+    <br>
+
+    <button onclick="showMsg('1')"><img src="number/1.png" alt="" width="50px" height="50px"></button>
+    <button onclick="showMsg('2')"><img src="number/2.png" alt="" width="50px" height="50px"></button>
+    <button onclick="showMsg('3')"><img src="number/3.png" alt="" width="50px" height="50px"></button>
+    <button onclick="cul('*')"><img src="number/x.png" alt="" width="50px" height="50px"></button>
+    <br>
+    <button onclick="clean()"><img src="number/c.png" alt="" width="50px" height="50px"></button>
+    <button onclick="showMsg(0)"><img src="number/0.png" alt="" width="50px" height="50px"></button>
+    <button onclick="rel()"><img src="number/=.png" alt="" width="50px" height="50px"></button>
+    <button onclick="cul('/')"><img src="number/div.png" alt="" width="50px" height="50px"></button>
+
+
+    <script>
+        var firstnumber;
+        var secnumber;
+        var result;
+        var op;
+        var flag = 1;
+        var flag1 = 0;
+        var flag2 = 0;
+
+
+        function showMsg(num) {
+
+            //把第一次0刪掉
+            if (flag2 == 0) {
+                document.getElementById('result').innerHTML = '';
+                flag2 = 1;
+                console.log('ddd');
+            }
+
+
+            //若按下 數字 or C 之後 畫面清空
+            if (flag == 1) {
+                document.getElementById('result').innerHTML = '';
+                flag = 0;
+                console.log('ddd');
+            }
+
+            //ERROR 後 畫面清空
+            if (flag1 == 1) {
+                document.getElementById('result').innerHTML = '';
+                flag1 = 0;
+                console.log('ccc');
+            }
+
+            //若超過8位數則ERROR
+            if (document.getElementById('result').innerHTML.length > 8) {
+                document.getElementById('result').innerHTML = 'ERROR';
+                flag = 1;
+                flag1 = 1;
+
+            } else {
+                document.getElementById('result').innerHTML = document.getElementById('result').innerHTML + num;
+                console.log(document.getElementById('result').innerHTML.length);
+                console.log('abc');
+            }
+
+        }
+
+        function cul(o) {
+            op = o;
+            firstnumber = document.getElementById('result').innerHTML;
+            document.getElementById('result').innerHTML = '0';
+            flag = 1;
+
+        }
+
+        function rel() {
+            secnumber = parseInt(document.getElementById('result').innerHTML);
+
+            if (op == '+') {
+                document.getElementById('result').innerHTML = parseInt(firstnumber) + parseInt(secnumber);
+                console.log(firstnumber);
+                console.log(secnumber);
+                // console.log(result);
+            }
+            if (op == '-') {
+                document.getElementById('result').innerHTML = parseInt(firstnumber) - parseInt(secnumber);
+            }
+            if (op == '*') {
+                document.getElementById('result').innerHTML = parseInt(firstnumber) * parseInt(secnumber);
+            }
+            if (op == '/') {
+                document.getElementById('result').innerHTML = parseInt(firstnumber) / parseInt(secnumber);
+            }
+            flag = 1;
+
+        }
+
+        function clean() {
+            document.getElementById('result').innerHTML = '0';
+            firstnumber = 0;
+            secnumber = 0;
+            flag = 1;
+        }
+
+        // $("body").css("background-color", "rgb(" + 31 + "," + 211 + "," + 224);
+    </script>
+
+</body>
+
+</html>
